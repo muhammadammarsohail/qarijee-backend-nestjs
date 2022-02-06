@@ -1,3 +1,4 @@
+import { SlotsDto } from "src/dto/availableSlots.dto";
 import { Gender } from "src/enums";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
@@ -35,5 +36,5 @@ export class Teacher extends BaseEntity {
     recitation: string;
 
     @Column("int", { array: true })
-    availableSlots: number[];
+    availableSlots: SlotsDto.AvailableSlots[];
 }
