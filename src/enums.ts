@@ -3,3 +3,13 @@ export enum Gender {
     female = 'female',
     other = 'other',
 }
+
+export enum Day {
+    monday = 'monday',
+    tuesday = 'tuesday',
+    wednesday = 'wednesday',
+    thursday = 'thursday',
+    friday = 'friday',
+    saturday = 'saturday',
+    sunday = 'sunday',
+}
