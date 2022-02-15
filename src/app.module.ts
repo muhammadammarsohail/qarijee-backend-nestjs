@@ -10,7 +10,7 @@ import { RightModule } from './right/right.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig),
+    // TypeOrmModule.forRoot(typeOrmConfig),
     StudentModule,
     TeacherModule,
     ClassroomModule,
