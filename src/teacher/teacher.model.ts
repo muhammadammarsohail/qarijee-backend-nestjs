@@ -1,17 +1,17 @@
 import { User } from "src/auth/user.entity";
 import { SlotsDto } from "src/dto/availableSlots.dto";
-import { Gender } from "src/enums";
+import { Gender } from "src/enum/enums";
 import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 @Unique(['email'])
 export class Teacher extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
-    @Column({ name: 'user_id', type: 'int', unique: true })
-    userId: number;
+    // @Column({ name: 'user_id', type: 'int', unique: true })
+    // userId: number;
 
     @OneToOne(type => User)
     @JoinColumn({ name: 'user_id' })
@@ -47,5 +47,5 @@ export class Teacher extends BaseEntity {
     recitation: string;
 
     @Column("int", { array: true })
-    availableSlots: SlotsDto.AvailableSlots[];
+    availableSlots: SlotsDto.AvailableSlot[];
 }

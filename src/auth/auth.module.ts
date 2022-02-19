@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TeacherRepository } from 'src/teacher/teacher.repository';
+import { AdminService } from 'src/admin/admin.service';
+import { StudentService } from 'src/student/student.service';
+import { TeacherService } from 'src/teacher/teacher.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 
@@ -9,6 +11,11 @@ import { AuthService } from './auth.service';
   //   TypeOrmModule.forFeature([TeacherRepository]),
   // ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AdminService,
+    TeacherService,
+    StudentService,
+  ],
 })
 export class AuthModule {}

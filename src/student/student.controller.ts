@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put } from "@nestjs/common";
+import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { StudentService } from "./student.service";
 
 @Controller("student")
@@ -12,8 +12,12 @@ export class StudentController {
   @Post()
   async postCreateStudent() {}
 
-  @Get("/:id")
-  async getStudentById() {}
+  @Get("/:email")
+  async getStudentByEmail(
+    @Param('email') email: string
+  ) {
+    return this.studentService.getStudentByEmail(email);
+  }
 
   @Delete("/:id")
   async deleteStudent() {}
