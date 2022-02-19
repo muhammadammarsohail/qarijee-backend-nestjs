@@ -7,11 +7,11 @@ import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColum
 @Unique(['email'])
 export class Teacher extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    // @PrimaryGeneratedColumn()
+    // id: number;
 
-    @Column({ name: 'user_id', type: 'int', unique: true })
-    userId: number;
+    // @Column({ name: 'user_id', type: 'int', unique: true })
+    // userId: number;
 
     @OneToOne(type => User)
     @JoinColumn({ name: 'user_id' })
