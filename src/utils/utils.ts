@@ -1,6 +1,6 @@
 import * as bcrypt from "bcrypt";
 import { SignupCredentialsDto } from "src/dto/signupCredentials.dto";
-import { Role } from "src/enums";
+import { Role } from "src/enum/enums";
 import { TeacherRepository } from "src/teacher/teacher.repository";
 
 export async function hashPassword(

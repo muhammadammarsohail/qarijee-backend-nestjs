@@ -1,6 +1,6 @@
 import { User } from "src/auth/user.entity";
 import { SlotsDto } from "src/dto/availableSlots.dto";
-import { Gender } from "src/enums";
+import { Gender } from "src/enum/enums";
 import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()

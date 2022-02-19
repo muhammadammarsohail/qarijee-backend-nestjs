@@ -1,5 +1,5 @@
 import { Course } from "src/course/course.model";
-import { Day } from "src/enums";
+import { Day } from "src/enum/enums";
 import { Student } from "src/student/student.model";
 import { Teacher } from "src/teacher/teacher.model";
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";

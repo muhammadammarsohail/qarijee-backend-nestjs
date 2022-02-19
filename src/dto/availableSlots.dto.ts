@@ -1,4 +1,4 @@
-import { Day } from "src/enums";
+import { Day } from "src/enum/enums";
 import { IsArray, IsNumber } from "class-validator";
 
 export namespace SlotsDto {

@@ -1,4 +1,4 @@
-import { Gender } from "src/enums";
+import { Gender } from "src/enum/enums";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
