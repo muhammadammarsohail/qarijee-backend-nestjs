@@ -80,6 +80,38 @@ export class Teacher {
   numberOfStudents: number = 0;
 }
 
+export class Student {
+  @IsString()
+  @IsNotEmpty()
+  @Matches(
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  )
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  jwt: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  age: number;
+
+  @IsEnum(Gender)
+  gender: Gender;
+
+  @IsString()
+  @IsNotEmpty()
+  country: string;
+  
+  @IsString()
+  @IsNotEmpty()
+  city: string;
+}
+
 export class Admin {
   @IsString()
   @IsNotEmpty()

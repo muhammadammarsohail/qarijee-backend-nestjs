@@ -76,7 +76,7 @@ export class teacherSignUpCredentialsDto {
   
   @IsArray()
   availableSlots: SlotsDto.AvailableSlots[];
-  
+
   @IsEnum(Course)
   courses: Course[]
 }
@@ -91,11 +91,11 @@ export class studentSignUpCredentialsDto {
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  password: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  name: string;
 
   @IsNumber()
   @IsNotEmpty()

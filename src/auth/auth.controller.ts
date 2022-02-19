@@ -1,7 +1,7 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { AdminService } from "src/admin/admin.service";
 import { LoginCredentialsDto } from "src/dto/loginCredentials.dto";
-import { adminSignUpCredentialsDto, teacherSignUpCredentialsDto } from "src/dto/signupCredentials.dto";
+import { adminSignUpCredentialsDto, studentSignUpCredentialsDto, teacherSignUpCredentialsDto } from "src/dto/signupCredentials.dto";
 import { StudentService } from "src/student/student.service";
 import { TeacherService } from "src/teacher/teacher.service";
 import { AuthService } from "./auth.service";
@@ -15,6 +15,12 @@ export class AuthController {
     private studentService: StudentService,
   ) {}
 
+
+  @Post("/login/admin")
+  async loginAdmin(@Body(ValidationPipe) loginCredentialsDto: LoginCredentialsDto) {
+    return await this.adminService.login(loginCredentialsDto);
+  }
+  
   @Post("/login/teacher")
   async loginTeacher(@Body(ValidationPipe) loginCredentialsDto: LoginCredentialsDto) {
     return await this.teacherService.login(loginCredentialsDto);
@@ -25,9 +31,11 @@ export class AuthController {
     return await this.studentService.login(loginCredentialsDto);
   }
 
-  @Post("/login/admin")
-  async loginAdmin(@Body(ValidationPipe) loginCredentialsDto: LoginCredentialsDto) {
-    return await this.adminService.login(loginCredentialsDto);
+  @Post("/signup/admin")
+  async signUpAdmin(
+    @Body(ValidationPipe) signupCredentialsDto: adminSignUpCredentialsDto
+  ) {
+    return await this.adminService.signUp(signupCredentialsDto);
   }
 
   @Post("/signup/teacher")
@@ -35,11 +43,11 @@ export class AuthController {
     return await this.teacherService.signUp(signupCredentialsDto);
   }
 
-  @Post("/signup/admin")
-  async signUpAdmin(
-    @Body(ValidationPipe) signupCredentialsDto: adminSignUpCredentialsDto
+  @Post("/signup/student")
+  async signUpStudent(
+    @Body(ValidationPipe) signupCredentialsDto: studentSignUpCredentialsDto
   ) {
-    return await this.adminService.signUp(signupCredentialsDto);
+    return await this.studentService.signUp(signupCredentialsDto);
   }
 
 }
