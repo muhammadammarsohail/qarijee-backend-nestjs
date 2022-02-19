@@ -3,3 +3,7 @@ export const db = {
   teacher: [],
   course: [],
 };
+
+export class Db {
+  student: { id: number };
+}
