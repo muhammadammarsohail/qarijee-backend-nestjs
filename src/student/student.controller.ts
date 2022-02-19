@@ -5,7 +5,9 @@ import { StudentService } from "./student.service";
 export class StudentController {
   constructor(private studentService: StudentService) {}
   @Get()
-  async getAllStudents() {}
+  async getAllStudents() {
+    return this.studentService.getAllStudents();
+  }
 
   @Post()
   async postCreateStudent() {}
