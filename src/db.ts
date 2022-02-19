@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
+import { IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
 import { SlotsDto } from "./dto/availableSlots.dto";
 import { Course } from "./enum/courseEnum";
 import { Gender, Role } from "./enum/enums";
@@ -7,7 +7,8 @@ export const db = {
   student: [],
   teacher: [],
   course: [],
-  admin: [{email: 'admin@qarijee.com', name: 'admin', jwt: '2aasdddmm1ii#nn$@@fqq6aa5r4i%j5e4e#.$c^o6mey45453$#%#5t2as@#$we5f4lk@#65f65w2!214#$%'}]
+  admin: [{email: 'admin@qarijee.com', name: 'admin', jwt: '2aasdddmm1ii#nn$@@fqq6aa5r4i%j5e4e#.$c^o6mey45453$#%#5t2as@#$we5f4lk@#65f65w2!214#$%'}],
+  classroom: [],
 };
 
 export class Db {
@@ -61,7 +62,7 @@ export class Teacher {
   recitation: string;
 
   @IsArray()
-  availableSlots: SlotsDto.AvailableSlots[];
+  availableSlots: SlotsDto.AvailableSlot[];
 
   @IsNumber()
   @IsOptional()
@@ -140,4 +141,35 @@ export class Admin {
   
   @IsString()
   city: string;
+}
+
+export class Classroom {
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  name: string;
+
+  @IsEnum(Course)
+  @IsNotEmpty()
+  courseName: Course;
+
+  @IsString()
+  @IsNotEmpty()
+  teacherEmail: string;
+
+  @IsString()
+  @IsNotEmpty()
+  studentEmail: string;
+
+  @IsString()
+  roomLink: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  slots: SlotsDto.Slot[];
+
+  @IsBoolean()
+  isTrial: boolean = false;
 }

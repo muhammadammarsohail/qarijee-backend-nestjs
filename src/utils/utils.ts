@@ -1,5 +1,7 @@
+import { BadRequestException } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { SALT } from "src/auth/salt";
+import { db } from "src/db";
 import { Role } from "src/enum/enums";
 import { TeacherRepository } from "src/teacher/teacher.repository";
 
@@ -37,7 +39,27 @@ export function signJwt(email: string, password: string) {
   return jwt.join("");
 }
 
-export function authenticate(email: string, password: string, role: Role) {
-  const jwt = signJwt(email, password);
-
+export function authenticate(roles: Role[], token: string) {
+  let permission: boolean = false;
+  let authUsers: any[];
+  for (const role in roles) {
+    let authUser: any;
+    switch (role) {
+      case Role.admin:
+        [authUser] = db.admin.filter(admin => admin.jwt === token);
+        break;
+      case Role.teacher:
+        [authUser] = db.teacher.filter(teacher => teacher.jwt === token);
+        break;
+      case Role.student:
+        [authUser] = db.student.filter(student => student.jwt === token);
+        break;
+      default:
+        break;
+    }
+    authUsers.push(authUser)
+  }
+  if (!authUsers?.length) {
+    throw new BadRequestException('Unauthorized')
+  }
 }

@@ -12,6 +12,11 @@ export class StudentService {
     return this.db.student;
   }
 
+  async getStudentByEmail(email: string) {
+    const [student] = this.db.student.filter(student => student.email === email);
+    return student;
+  }
+
   async login(loginCredentialDto: LoginCredentialsDto) {
     const jwt = signJwt(loginCredentialDto.email, loginCredentialDto.password);
     let [student] = db.student.filter(adm => adm.jwt === jwt);

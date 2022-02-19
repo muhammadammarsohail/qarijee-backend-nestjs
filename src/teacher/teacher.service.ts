@@ -6,6 +6,12 @@ import { signJwt } from 'src/utils/utils';
 
 @Injectable()
 export class TeacherService {
+    
+    async getMyDetails(token: string){
+        let [me] = db.teacher.filter(teacher => teacher.jwt === token);
+        return me;
+    }
+
     async login(loginCredentialDto: LoginCredentialsDto) {
         const jwt = signJwt(loginCredentialDto.email, loginCredentialDto.password);
         let [teacher] = db.teacher.filter(adm => adm.jwt === jwt);

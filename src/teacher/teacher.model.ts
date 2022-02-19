@@ -47,5 +47,5 @@ export class Teacher extends BaseEntity {
     recitation: string;
 
     @Column("int", { array: true })
-    availableSlots: SlotsDto.AvailableSlots[];
+    availableSlots: SlotsDto.AvailableSlot[];
 }

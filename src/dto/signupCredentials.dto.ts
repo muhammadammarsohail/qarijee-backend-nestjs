@@ -75,7 +75,7 @@ export class teacherSignUpCredentialsDto {
   recitation: string;
   
   @IsArray()
-  availableSlots: SlotsDto.AvailableSlots[];
+  availableSlots: SlotsDto.AvailableSlot[];
 
   @IsArray()
   courses: Course[]
