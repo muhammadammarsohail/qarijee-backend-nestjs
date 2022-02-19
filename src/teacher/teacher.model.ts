@@ -1,24 +1,35 @@
+import { User } from "src/auth/user.entity";
 import { SlotsDto } from "src/dto/availableSlots.dto";
 import { Gender } from "src/enums";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
+@Unique(['email'])
 export class Teacher extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ name: 'user_id', type: 'int', unique: true })
+    userId: number;
+
+    @OneToOne(type => User)
+    @JoinColumn({ name: 'user_id' })
+
     @Column()
     name: string;
 
-    @Column()
-    email: string;
+    // @Column()
+    // email: string;
 
-    @Column()
-    password: string;
+    // @Column()
+    // password: string;
 
-    @Column()
-    jwt: string;
+    // @Column()
+    // salt: string;
+
+    // @Column()
+    // jwt: string;
 
     @Column()
     age: number;

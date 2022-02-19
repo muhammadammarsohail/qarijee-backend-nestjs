@@ -1,10 +1,9 @@
-import { Gender } from "src/enums";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 @Unique(['email'])
-export class Student extends BaseEntity {
-    
+export class User extends BaseEntity {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -18,17 +17,10 @@ export class Student extends BaseEntity {
     password: string;
 
     @Column()
+    salt: string;
+
+    @Column()
     jwt: string;
 
-    @Column()
-    age: number;
-
-    @Column()
-    gender: Gender;
-
-    @Column()
-    country: string;
-
-    @Column()
-    city: string;
+    
 }

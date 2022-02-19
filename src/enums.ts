@@ -13,3 +13,9 @@ export enum Day {
     saturday = 'saturday',
     sunday = 'sunday',
 }
+
+export enum Role {
+    admin = 'admin',
+    teacher = 'teacher',
+    student = 'student'
+}
