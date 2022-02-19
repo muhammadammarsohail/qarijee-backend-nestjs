@@ -1,16 +1,16 @@
 import {
   ConflictException,
   InternalServerErrorException,
-} from '@nestjs/common';
-import { AuthCredentialsDto } from 'src/dto/auth-credentials.dto';
-import { EntityRepository, Repository } from 'typeorm';
-import { Teacher } from './teacher.model';
-import * as bcrypt from 'bcrypt';
-import { hashPassword } from 'src/utils/utils';
+} from "@nestjs/common";
+import { SignupCredentialsDto } from "src/dto/signupCredentials.dto";
+import { EntityRepository, Repository } from "typeorm";
+import { Teacher } from "./teacher.model";
+import * as bcrypt from "bcrypt";
+import { hashPassword } from "src/utils/utils";
 
 @EntityRepository(Teacher)
 export class TeacherRepository extends Repository<Teacher> {
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+  async signUp(authCredentialsDto: SignupCredentialsDto): Promise<void> {
     const { email, password } = authCredentialsDto;
 
     const teacher = new Teacher();
@@ -21,8 +21,8 @@ export class TeacherRepository extends Repository<Teacher> {
     try {
       await teacher.save();
     } catch (error) {
-      if (error.code === '23505') {
-        throw new ConflictException('Email already exists');
+      if (error.code === "23505") {
+        throw new ConflictException("Email already exists");
       } else {
         throw new InternalServerErrorException();
       }

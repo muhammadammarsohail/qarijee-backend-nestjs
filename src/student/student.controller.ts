@@ -1,7 +1,21 @@
-import { Controller } from '@nestjs/common';
-import { StudentService } from './student.service';
+import { Controller, Delete, Get, Post, Put } from "@nestjs/common";
+import { StudentService } from "./student.service";
 
-@Controller('student')
+@Controller("student")
 export class StudentController {
-    constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService) {}
+  @Get()
+  async getAllStudents() {}
+
+  @Post()
+  async postCreateStudent() {}
+
+  @Get("/:id")
+  async getStudentById() {}
+
+  @Delete("/:id")
+  async deleteStudent() {}
+
+  @Put("/:id")
+  async updateStudent() {}
 }

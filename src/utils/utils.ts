@@ -1,11 +1,11 @@
-import * as bcrypt from 'bcrypt';
-import { AuthCredentialsDto } from 'src/dto/auth-credentials.dto';
-import { Role } from 'src/enums';
-import { TeacherRepository } from 'src/teacher/teacher.repository';
+import * as bcrypt from "bcrypt";
+import { SignupCredentialsDto } from "src/dto/signupCredentials.dto";
+import { Role } from "src/enums";
+import { TeacherRepository } from "src/teacher/teacher.repository";
 
 export async function hashPassword(
   password: string,
-  salt: string,
+  salt: string
 ): Promise<string> {
   return bcrypt.hash(password, salt);
 }
