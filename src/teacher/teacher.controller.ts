@@ -1,4 +1,5 @@
-import { Controller, Delete, Get, Param, Post, Put, Req, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Request, ValidationPipe } from "@nestjs/common";
+import { UpdateTeacher } from "src/dto/teacher.dto";
 import { TeacherService } from "./teacher.service";
 
 @Controller("teacher")
@@ -17,8 +18,10 @@ export class TeacherController {
     return this.teacherService.getMyDetails(token);
   }
 
-  @Get()
-  async getAllTeachers() {}
+  @Get('/all')
+  async getAllTeachers() {
+    return await this.teacherService.getAllTeachers();
+  }
 
   @Get("/:id")
   async getTeacherById() {}
@@ -30,9 +33,14 @@ export class TeacherController {
   async deleteTeacher(
     @Param('email') email: string
   ) {
-
+    return this.teacherService.delete(email);
   }
 
-  @Put("/:id")
-  async updateTeacher() {}
+  @Put("/:email")
+  async updateTeacher(
+    @Param('email') email: string,
+    @Body(ValidationPipe) input: UpdateTeacher.UpdateInput
+  ) {
+    return this.teacherService.updateTeacher(email, input);
+  }
 }

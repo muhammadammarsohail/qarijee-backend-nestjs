@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { db, Teacher } from 'src/db';
 import { LoginCredentialsDto } from 'src/dto/loginCredentials.dto';
 import { teacherSignUpCredentialsDto } from 'src/dto/signupCredentials.dto';
+import { UpdateTeacher } from 'src/dto/teacher.dto';
 import { signJwt } from 'src/utils/utils';
 
 @Injectable()
@@ -46,4 +47,33 @@ export class TeacherService {
         
         return teacher;
     }
+
+    async delete(email: string) {
+        const teacherIndex = db.teacher.findIndex(teacher => teacher.email === email);
+        db.teacher = db.teacher.splice(teacherIndex, 1);
+        return 'Teacher removed successfully.'
+    }
+
+    async getAllTeachers() {
+        return db.teacher;
+    }
+
+    async updateTeacher(email: string, input: UpdateTeacher.UpdateInput) {
+        const index = db.teacher.findIndex(teacher => teacher.email === email);
+        let updatedTeacher = db.teacher[index];
+        updatedTeacher.name = input.name || updatedTeacher.name;
+        updatedTeacher.photo = input.photo || updatedTeacher.photo;
+        updatedTeacher.intro = input.intro || updatedTeacher.intro;
+        updatedTeacher.password = input.password || updatedTeacher.password;
+        updatedTeacher.age = input.age || updatedTeacher.age;
+        updatedTeacher.country = input.country || updatedTeacher.country;
+        updatedTeacher.city = input.city || updatedTeacher.city;
+        updatedTeacher.recitation = input.recitation || updatedTeacher.recitation;
+        updatedTeacher.availableSlots = input.availableSlots || updatedTeacher.availableSlots;
+        updatedTeacher.courses = input.courses || updatedTeacher.courses;
+
+        db.teacher[index] = updatedTeacher;
+        return updatedTeacher;
+    }
+
 }
