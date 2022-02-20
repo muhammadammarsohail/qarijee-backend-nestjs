@@ -1,9 +1,20 @@
-import { Controller, Delete, Get, Post, Put } from "@nestjs/common";
+import { Controller, Delete, Get, Post, Put, Request } from "@nestjs/common";
+import { CourseService } from "./course.service";
 
 @Controller("course")
 export class CourseController {
-  @Get()
-  async getAllCourses() {}
+  constructor(
+    private courseService: CourseService,
+  ) {}
+
+  @Get('names')
+  async getCourseNames(
+    @Request() req: any
+  ) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader.split(' ')[1];
+    return this.courseService.getCourseNames(token);
+  }
 
   @Get("/:id")
   async getCourseById() {}
