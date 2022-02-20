@@ -1,5 +1,5 @@
 import { Day } from "src/enum/enums";
-import { IsArray, IsNumber } from "class-validator";
+import { IsArray, IsNumber, IsString } from "class-validator";
 
 export namespace SlotsDto {
 
@@ -19,5 +19,18 @@ export namespace SlotsDto {
         @IsArray()
         @IsNumber()
         hour: number;
+    }
+}
+
+export namespace Book {
+    export class Book {        
+        @IsString()
+        name: string;
+
+        @IsString()
+        link: string;
+
+        @IsString()
+        thumbnail: string;
     }
 }

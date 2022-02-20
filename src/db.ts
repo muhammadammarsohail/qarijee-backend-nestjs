@@ -1,8 +1,8 @@
 import { IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
-import { SlotsDto } from "./dto/availableSlots.dto";
 import { AssessmentDto } from "./dto/generateReport.dto";
-import { Course } from "./enum/courseEnum";
-import { Gender } from "./enum/enums";
+import { Book, SlotsDto } from "./dto/availableSlots.dto";
+import { CourseEnum } from "./enum/courseEnum";
+import { Gender, Role } from "./enum/enums";
 
 export const db = {
   student: [],
@@ -76,11 +76,14 @@ export class Teacher {
   reviews: string[] = [];
 
   @IsArray()
-  @IsEnum(Course)
-  courses: Course[];
+  @IsEnum(CourseEnum)
+  courses: CourseEnum[];
 
   @IsNumber()
   numberOfStudents: number = 0;
+
+  @IsString()
+  roomLink: string;
 }
 
 export class Student {
@@ -153,9 +156,9 @@ export class Classroom {
   @IsString()
   name: string;
 
-  @IsEnum(Course)
+  @IsEnum(CourseEnum)
   @IsNotEmpty()
-  courseName: Course;
+  courseName: CourseEnum;
 
   @IsString()
   @IsNotEmpty()
@@ -174,6 +177,28 @@ export class Classroom {
 
   @IsBoolean()
   isTrial: boolean = false;
+
+  @IsEnum(Book.Book)
+  @IsArray()
+  @IsOptional()
+  books: Book.Book[];
+}
+
+
+
+export class Course {
+
+  @IsString()
+  name: CourseEnum;
+
+  @IsString()
+  description: string;
+
+  @IsEnum(Book.Book)
+  @IsArray()
+  @IsOptional()
+  books: Book.Book[];
+
 }
 
 export class Assessment {

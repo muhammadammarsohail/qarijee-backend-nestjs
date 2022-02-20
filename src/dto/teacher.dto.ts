@@ -1,5 +1,5 @@
 import { IsArray, IsBoolean, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { Course } from "src/enum/courseEnum";
+import { CourseEnum } from "src/enum/courseEnum";
 import { Gender } from "src/enum/enums";
 import { SlotsDto } from "./availableSlots.dto";
 
@@ -43,8 +43,8 @@ export namespace UpdateTeacher {
     availableSlots?: SlotsDto.AvailableSlot[];
   
     @IsArray()
-    @IsEnum(Course)
-    courses?: Course[];
+    @IsEnum(CourseEnum)
+    courses?: CourseEnum[];
 
   }
 
@@ -105,8 +105,8 @@ export namespace UpdateTeacher {
   
     @IsArray()
     @IsOptional()
-    @IsEnum(Course)
-    courses?: Course[];
+    @IsEnum(CourseEnum)
+    courses?: CourseEnum[];
 
     @IsNumber()
     @IsOptional()

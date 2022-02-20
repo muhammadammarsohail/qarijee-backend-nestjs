@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsEnum, IsArray } from "class-validator"
-import { Course } from "src/enum/courseEnum";
+import { CourseEnum } from "src/enum/courseEnum";
 import { SlotsDto } from "./availableSlots.dto";
 
 export namespace Enroll {
@@ -11,8 +11,8 @@ export namespace Enroll {
         @IsString()
         teacherEmail: string;
 
-        @IsEnum(Course)
-        courseName: Course;
+        @IsEnum(CourseEnum)
+        courseName: CourseEnum;
 
         @IsArray()
         slots: SlotsDto.Slot[];

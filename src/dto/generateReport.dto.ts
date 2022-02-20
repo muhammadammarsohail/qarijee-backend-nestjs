@@ -1,7 +1,6 @@
 import { IsArray, IsDateString, IsEnum, isEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { Course } from "src/enum/courseEnum"
 import { SlotsDto } from "./availableSlots.dto";
-
+import { CourseEnum } from "src/enum/courseEnum"
 export namespace AssessmentDto {
 
     export class Schedule {
@@ -9,8 +8,8 @@ export namespace AssessmentDto {
         @IsNumber()
         totalMarks: number;
 
-        @IsEnum(Course)
-        course: Course
+        @IsEnum(CourseEnum)
+        course: CourseEnum
 
         @IsString()
         teacherEmail: string;
@@ -43,8 +42,8 @@ export namespace AssessmentDto {
         @IsString()
         remarks: string;
 
-        @IsEnum(Course)
-        course: Course;
+        @IsEnum(CourseEnum)
+        course: CourseEnum;
 
         @IsString()
         teacherEmail: string;
@@ -66,8 +65,8 @@ export namespace AssessmentDto {
         @IsString()
         remarks: string;
 
-        @IsEnum(Course)
-        course: Course
+        @IsEnum(CourseEnum)
+        course: CourseEnum
 
         @IsNumber()
         teacherId: number;
