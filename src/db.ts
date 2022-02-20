@@ -1,6 +1,6 @@
 import { IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
 import { SlotsDto } from "./dto/availableSlots.dto";
-import { AssessmentNamespace } from "./dto/generateReport.dto";
+import { AssessmentDto } from "./dto/generateReport.dto";
 import { Course } from "./enum/courseEnum";
 import { Gender } from "./enum/enums";
 
@@ -200,5 +200,5 @@ export class Assessment {
   remarks: string;
 
   @IsOptional()
-  report: AssessmentNamespace.Report;
+  report: AssessmentDto.Report;
 }

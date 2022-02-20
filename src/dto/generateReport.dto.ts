@@ -2,7 +2,7 @@ import { IsArray, IsDateString, IsEnum, isEnum, IsNumber, IsOptional, IsString }
 import { Course } from "src/enum/courseEnum"
 import { SlotsDto } from "./availableSlots.dto";
 
-export namespace AssessmentNamespace {
+export namespace AssessmentDto {
 
     export class Schedule {
 

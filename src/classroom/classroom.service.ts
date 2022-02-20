@@ -58,7 +58,7 @@ export class ClassroomService {
         } else {
             const [student] = db.teacher.filter(teacher => teacher.jwt === token);
             const studentEmail = student.email;
-            classrooms = db.classroom.filter(classroom => classroom.teacherEmail === studentEmail);
+            classrooms = db.classroom.filter(classroom => classroom.studentEmail === studentEmail);
         }
         return classrooms;
     }
