@@ -16,8 +16,14 @@ export class CourseController {
     return this.courseService.getCourseNames(token);
   }
 
-  @Get("/:id")
-  async getCourseById() {}
+  @Get("all")
+  async getAllCourses(
+    @Request() req: any
+  ) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader.split(' ')[1];
+    return this.courseService.getAllCourses(token);
+  }
 
   @Post("/:id")
   async postCreateCourse() {}

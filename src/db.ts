@@ -184,8 +184,6 @@ export class Classroom {
   books: Book.Book[];
 }
 
-
-
 export class Course {
 
   @IsString()
