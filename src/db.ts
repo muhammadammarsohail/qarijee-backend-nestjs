@@ -1,14 +1,16 @@
 import { IsArray, IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
 import { SlotsDto } from "./dto/availableSlots.dto";
+import { AssessmentNamespace } from "./dto/generateReport.dto";
 import { Course } from "./enum/courseEnum";
-import { Gender, Role } from "./enum/enums";
+import { Gender } from "./enum/enums";
 
 export const db = {
   student: [],
   teacher: [],
-  course: [],
   admin: [{email: 'admin@qarijee.com', name: 'admin', jwt: '2aasdddmm1ii#nn$@@fqq6aa5r4i%j5e4e#.$c^o6mey45453$#%#5t2as@#$we5f4lk@#65f65w2!214#$%'}],
+  course: [],
   classroom: [],
+  assessment: [],
 };
 
 export class Db {
@@ -172,4 +174,31 @@ export class Classroom {
 
   @IsBoolean()
   isTrial: boolean = false;
+}
+
+export class Assessment {
+
+  @IsNumber()
+  totalMarks: number;
+
+  @IsEnum(Course)
+  course: Course
+
+  @IsString()
+  teacherEmail: string;
+
+  @IsString()
+  studentEmail: string;
+
+  @IsOptional()
+  slot?: SlotsDto.Slot;
+
+  @IsNumber()
+  obtainedMarks: number;
+
+  @IsString()
+  remarks: string;
+
+  @IsOptional()
+  report: AssessmentNamespace.Report;
 }

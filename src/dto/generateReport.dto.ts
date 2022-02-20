@@ -1,7 +1,8 @@
 import { IsArray, IsDateString, IsEnum, isEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Course } from "src/enum/courseEnum"
+import { SlotsDto } from "./availableSlots.dto";
 
-export namespace Assessment {
+export namespace AssessmentNamespace {
 
     export class Schedule {
 
@@ -11,18 +12,16 @@ export namespace Assessment {
         @IsEnum(Course)
         course: Course
 
-        @IsNumber()
-        teacherId: number;
+        @IsString()
+        teacherEmail: string;
 
-        @IsNumber()
-        studentId: number;
+        @IsString()
+        studentEmail: string;
 
-        @IsDateString()
-        examTime: string;
-
+        slot: SlotsDto.Slot;
     }
 
-    export class Report {
+    export class GenerateReport {
 
         @IsNumber()
         obtainedMarks: number;
@@ -30,6 +29,30 @@ export namespace Assessment {
         @IsString()
         remarks: string;
 
+    }
+
+    export class Report {
+
+        @IsNumber()
+        @IsOptional()
+        obtainedMarks: number;
+
+        @IsNumber()
+        totalMarks: number;
+
+        @IsString()
+        remarks: string;
+
+        @IsEnum(Course)
+        course: Course;
+
+        @IsString()
+        teacherEmail: string;
+
+        @IsString()
+        studentEmail: string;
+
+        slot: SlotsDto.Slot;
     }
 
     export class List {
@@ -51,9 +74,8 @@ export namespace Assessment {
 
         @IsNumber()
         studentId: number;
-
-        @IsDateString()
-        examTime: string;
+        
+        slot: SlotsDto.Slot;
 
     }
 }
