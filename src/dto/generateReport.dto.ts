@@ -1,5 +1,5 @@
 import { IsArray, IsDateString, IsEnum, isEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { Course } from "src/enum/courseEnum"
+import { CourseEnum } from "src/enum/courseEnum"
 
 export namespace Assessment {
 
@@ -8,8 +8,8 @@ export namespace Assessment {
         @IsNumber()
         totalMarks: number;
 
-        @IsEnum(Course)
-        course: Course
+        @IsEnum(CourseEnum)
+        course: CourseEnum
 
         @IsNumber()
         teacherId: number;
@@ -43,8 +43,8 @@ export namespace Assessment {
         @IsString()
         remarks: string;
 
-        @IsEnum(Course)
-        course: Course
+        @IsEnum(CourseEnum)
+        course: CourseEnum
 
         @IsNumber()
         teacherId: number;

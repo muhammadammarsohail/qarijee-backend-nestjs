@@ -40,6 +40,7 @@ export class TeacherService {
         teacher.courses = signUpCredentials.courses;
         teacher.intro = signUpCredentials.intro;
         teacher.photo = signUpCredentials.photo;
+        teacher.roomLink = signUpCredentials.roomLink;
         
         db.teacher.push(teacher);
         console.log(teacher);

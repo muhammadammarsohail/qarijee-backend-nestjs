@@ -26,6 +26,8 @@ export class ClassroomService {
         classroom.studentEmail = queryParams.studentEmail;
         classroom.courseName = queryParams.courseName;
         classroom.slots = queryParams.slots
+        const [course] = db.course.filter(course => course.name === queryParams.courseName)
+        classroom.books = course.books;
 
         db.classroom.push(classroom);
         console.log(db.classroom);
@@ -62,4 +64,10 @@ export class ClassroomService {
         }
         return classrooms;
     }
-}
+
+    async getAllClassrooms(token: string) {
+        authenticate([Role.admin], token)
+        return db.classroom;
+    }
+
+} 

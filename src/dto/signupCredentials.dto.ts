@@ -1,5 +1,5 @@
 import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
-import { Course } from "src/enum/courseEnum";
+import { CourseEnum } from "src/enum/courseEnum";
 import { Gender } from "src/enum/enums";
 import { SlotsDto } from "./availableSlots.dto";
 
@@ -78,7 +78,10 @@ export class teacherSignUpCredentialsDto {
   availableSlots: SlotsDto.AvailableSlot[];
 
   @IsArray()
-  courses: Course[]
+  courses: CourseEnum[]
+
+  @IsString()
+  roomLink: string;
 }
 
 export class studentSignUpCredentialsDto {
