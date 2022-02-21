@@ -23,17 +23,17 @@ export async function hashPassword(
 // }
 
 export function signJwt(email: string, password: string) {
-  let jwt: string[] = []
+  let jwt: string[] = [];
   const saltChar: string[] = [...SALT];
   const emailChar: string[] = [...email];
   const passwordChar: string[] = [...password];
   for (let i = 0; i < saltChar.length; i++) {
-    jwt.push(saltChar[i])
+    jwt.push(saltChar[i]);
     if (emailChar[i]) {
-      jwt.push(emailChar[i])
+      jwt.push(emailChar[i]);
     }
     if (passwordChar[i]) {
-      jwt.push(emailChar[i])
+      jwt.push(emailChar[i]);
     }
   }
   return jwt.join("");
@@ -41,25 +41,25 @@ export function signJwt(email: string, password: string) {
 
 export function authenticate(roles: Role[], token: string) {
   let permission: boolean = false;
-  let authUsers: any[];
+  let authUsers: any[] = [];
   for (const role in roles) {
     let authUser: any;
     switch (role) {
       case Role.admin:
-        [authUser] = db.admin.filter(admin => admin.jwt === token);
+        [authUser] = db.admin.filter((admin) => admin.jwt === token);
         break;
       case Role.teacher:
-        [authUser] = db.teacher.filter(teacher => teacher.jwt === token);
+        [authUser] = db.teacher.filter((teacher) => teacher.jwt === token);
         break;
       case Role.student:
-        [authUser] = db.student.filter(student => student.jwt === token);
+        [authUser] = db.student.filter((student) => student.jwt === token);
         break;
       default:
         break;
     }
-    authUsers.push(authUser)
+    authUsers.push(authUser);
   }
   if (!authUsers?.length) {
-    throw new BadRequestException('Unauthorized')
+    throw new BadRequestException("Unauthorized");
   }
 }
