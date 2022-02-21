@@ -1,5 +1,5 @@
 import { BadRequestException } from "@nestjs/common";
-import * as bcrypt from "bcrypt";
+// import * as bcrypt from "bcrypt";
 import { SALT } from "src/auth/salt";
 import { db } from "src/db";
 import { Role } from "src/enum/enums";
@@ -9,7 +9,7 @@ export async function hashPassword(
   password: string,
   salt: string
 ): Promise<string> {
-  return bcrypt.hash(password, salt);
+  return "";
 }
 
 // export async function validateUserPassword(authCredentialsDto: AuthCredentialsDto, role: Role): Promise<string> {
@@ -23,17 +23,17 @@ export async function hashPassword(
 // }
 
 export function signJwt(email: string, password: string) {
-  let jwt: string[] = []
+  let jwt: string[] = [];
   const saltChar: string[] = [...SALT];
   const emailChar: string[] = [...email];
   const passwordChar: string[] = [...password];
   for (let i = 0; i < saltChar.length; i++) {
-    jwt.push(saltChar[i])
+    jwt.push(saltChar[i]);
     if (emailChar[i]) {
-      jwt.push(emailChar[i])
+      jwt.push(emailChar[i]);
     }
     if (passwordChar[i]) {
-      jwt.push(emailChar[i])
+      jwt.push(emailChar[i]);
     }
   }
   return jwt.join("");
@@ -46,20 +46,20 @@ export function authenticate(roles: Role[], token: string) {
     let authUser: any;
     switch (role) {
       case Role.admin:
-        [authUser] = db.admin.filter(admin => admin.jwt === token);
+        [authUser] = db.admin.filter((admin) => admin.jwt === token);
         break;
       case Role.teacher:
-        [authUser] = db.teacher.filter(teacher => teacher.jwt === token);
+        [authUser] = db.teacher.filter((teacher) => teacher.jwt === token);
         break;
       case Role.student:
-        [authUser] = db.student.filter(student => student.jwt === token);
+        [authUser] = db.student.filter((student) => student.jwt === token);
         break;
       default:
         break;
     }
-    authUsers.push(authUser)
+    authUsers.push(authUser);
   }
   if (!authUsers?.length) {
-    throw new BadRequestException('Unauthorized')
+    throw new BadRequestException("Unauthorized");
   }
 }
