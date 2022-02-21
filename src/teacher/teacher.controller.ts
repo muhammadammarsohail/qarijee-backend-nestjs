@@ -18,6 +18,15 @@ export class TeacherController {
     return this.teacherService.getMyDetails(token);
   }
 
+  @Get('/top') 
+  async getTopTeachers(
+    @Request() req: any
+  ) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader.split(' ')[1];
+    return this.teacherService.getTopTeachers(token);
+  }
+
   @Get('/all')
   async getAllTeachers() {
     return await this.teacherService.getAllTeachers();
