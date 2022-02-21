@@ -204,8 +204,8 @@ export class Assessment {
   @IsNumber()
   totalMarks: number;
 
-  @IsEnum(Course)
-  course: Course
+  @IsEnum(CourseEnum)
+  course: CourseEnum
 
   @IsString()
   teacherEmail: string;

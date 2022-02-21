@@ -1,5 +1,5 @@
 import { BadRequestException } from "@nestjs/common";
-import * as bcrypt from "bcrypt";
+// import * as bcrypt from "bcrypt";
 import { SALT } from "src/auth/salt";
 import { db } from "src/db";
 import { Role } from "src/enum/enums";
@@ -9,7 +9,7 @@ export async function hashPassword(
   password: string,
   salt: string
 ): Promise<string> {
-  return bcrypt.hash(password, salt);
+  return "";
 }
 
 // export async function validateUserPassword(authCredentialsDto: AuthCredentialsDto, role: Role): Promise<string> {

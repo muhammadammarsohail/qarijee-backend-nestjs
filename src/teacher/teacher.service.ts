@@ -3,7 +3,8 @@ import { db, Teacher } from 'src/db';
 import { LoginCredentialsDto } from 'src/dto/loginCredentials.dto';
 import { teacherSignUpCredentialsDto } from 'src/dto/signupCredentials.dto';
 import { UpdateTeacher } from 'src/dto/teacher.dto';
-import { signJwt } from 'src/utils/utils';
+import { Role } from 'src/enum/enums';
+import { authenticate, signJwt } from 'src/utils/utils';
 
 @Injectable()
 export class TeacherService {
@@ -75,6 +76,18 @@ export class TeacherService {
 
         db.teacher[index] = updatedTeacher;
         return updatedTeacher;
+    }
+
+    async getTopTeachers(token: string) {
+        authenticate([Role.admin, Role.student], token)
+
+        let teachers = db.teacher
+        let sortedTeachers = teachers.sort(
+            (a, b) => {
+                return a.rating - b.rating;
+            }
+        )
+        return sortedTeachers.slice(0, 4);
     }
 
 }
