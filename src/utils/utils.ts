@@ -41,7 +41,7 @@ export function signJwt(email: string, password: string) {
 
 export function authenticate(roles: Role[], token: string) {
   let permission: boolean = false;
-  let authUsers: any[];
+  let authUsers: any[] = [];
   for (const role in roles) {
     let authUser: any;
     switch (role) {

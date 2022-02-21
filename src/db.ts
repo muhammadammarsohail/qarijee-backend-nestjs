@@ -8,7 +8,13 @@ export const db = {
   student: [],
   teacher: [],
   admin: [{email: 'admin@qarijee.com', name: 'admin', jwt: '2aasdddmm1ii#nn$@@fqq6aa5r4i%j5e4e#.$c^o6mey45453$#%#5t2as@#$we5f4lk@#65f65w2!214#$%'}],
-  course: [],
+  course: [
+    {name: CourseEnum.tajweed, description: , books: [{name: 'Noorani Quaida', link: 'console.firebase.com/qarijee/books/nooraniquaida', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/nooraniquaida'}, {name: "Holy Quran", link: 'console.firebase.com/qarijee/books/holyquran', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/holyquran'}]},
+    {name: CourseEnum.hifz, description: , books: [{name: "Holy Quran", link: 'console.firebase.com/qarijee/books/holyquran', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/holyquran'}]},
+    {name: CourseEnum.qiraat, description: , books: [{name: "Holy Quran", link: 'console.firebase.com/qarijee/books/holyquran', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/holyquran'}, {name: "Saut-ul-Quran", link: 'console.firebase.com/books/sautulquran', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/sautulquran'}]},
+    {name: CourseEnum.tafseer, description: , books: [{name: "Muaarif-ul-Quran", link: 'console.firebase.com/qarijee/books/muaarifulquran', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/muaarifulquran'}, {name: "Asan Tarjuma-e-Quran", link: 'console.firebase.com/qarijee/books/asantarjumaequran', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/asantarjumaequran'}]},
+    {name: CourseEnum.hadees, description: , books: [{name: 'Sahih Bukhari Vol 1', link: 'console.firebase.com/qarijee/books/sahihbukharivol1', thumbnail: 'console.firebase.com/books/qarijee/thumbnail/sahihbukharivol1'}, {name: "Sahih Bukhari Vol 2", link: 'console.firebase.com/qarijee/books/sahihbukharivol2', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/sahihbukharivol2'}, {name: "Sahih Bukhari Vol 3", link: 'console.firebase.com/qarijee/books/sahihbukharivol3', thumbnail: 'console.firebase.com/qarijee/books/thumbnail/sahihbukharivol3'}]},
+  ],
   classroom: [],
   assessment: [],
 };
