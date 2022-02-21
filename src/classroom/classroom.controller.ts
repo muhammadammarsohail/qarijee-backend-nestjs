@@ -25,7 +25,7 @@ export class ClassroomController {
     ) {
         const authHeader = req.headers['authorization']
         const token = authHeader.split(' ')[1];
-        this.classroomService.getClassroomByStudentEmail(email, token);
+        return this.classroomService.getClassroomByStudentEmail(email, token);
     }
 
     @Post('enroll')
@@ -36,5 +36,14 @@ export class ClassroomController {
         const authHeader = req.headers['authorization']
         const token = authHeader.split(' ')[1];
         return this.classroomService.enroll(queryParams, token);
+    }
+
+    @Get('all')
+    async getAllClassrooms(
+        @Request() req: any
+    ) {
+        const authHeader = req.headers['authorization']
+        const token = authHeader.split(' ')[1];
+        return this.classroomService.getAllClassrooms(token);
     }
 }
