@@ -59,6 +59,13 @@ export class CourseController {
     return this.courseService.updateCourse(name, course, token);
   }
 
-  @Delete("/:id")
-  async deleteCourse() {}
+  @Delete("/:name")
+  async deleteCourse(
+    @Param('name') name: string,
+    @Request() req: any
+  ) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader.split(' ')[1];
+    return this.courseService.delete(name, token);
+  }
 }

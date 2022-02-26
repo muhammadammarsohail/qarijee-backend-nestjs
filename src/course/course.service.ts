@@ -11,8 +11,11 @@ export class CourseService {
     async getCourseNames(token: string) {
         authenticate([Role.admin, Role.student, Role.teacher], token)
 
+        const deleted: string = 'DELETED';
+
         const courseNames = Object.values(CourseEnum)
-        return courseNames;
+        const undeletedCourseNames = courseNames.filter(courseName => courseName !== deleted)
+        return undeletedCourseNames;
     }
 
     async getAllCourses(token: string) {
@@ -63,5 +66,20 @@ export class CourseService {
         db.course[courseIndex].books = courseInput.books;
 
         return db.course[courseIndex];        
+    }
+
+    async delete(name: string, token: string) {
+        authenticate([Role.admin], token);        
+
+        const courseIndex = db.course.findIndex(course => course.name === name);
+
+        if(courseIndex < 0) {
+            throw new BadRequestException("Course doesn't exist")
+        }
+
+        CourseEnum[name] = 'DELETED'
+
+        db.course.splice(courseIndex, 1);
+        return 'Course removed successfully.'
     }
 }
