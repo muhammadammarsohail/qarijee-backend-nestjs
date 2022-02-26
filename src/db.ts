@@ -198,7 +198,6 @@ export class Course {
   @IsString()
   description: string;
 
-  @IsEnum(Book.Book)
   @IsArray()
   @IsOptional()
   books: Book.Book[];

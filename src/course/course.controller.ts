@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, ValidationPipe } from "@nestjs/common";
 import { Course } from "src/db";
+import { UpdateCourse } from "src/dto/course.dto";
 import { CourseEnum } from "src/enum/courseEnum";
 import { CourseService } from "./course.service";
 
@@ -39,7 +40,7 @@ export class CourseController {
 
   @Post("/create")
   async CreateCourse(
-    @Body() course: Course,
+    @Body(ValidationPipe) course: Course,
     @Request() req: any
   ) {
     const authHeader = req.headers['authorization']
@@ -47,8 +48,16 @@ export class CourseController {
     return await this.courseService.createCourse(course, token);
   }
 
-  @Put("/:id")
-  async updateCourse() {}
+  @Put("/:name")
+  async updateCourse(
+    @Param('name') name: string,
+    @Body(ValidationPipe) course: UpdateCourse,
+    @Request() req: any
+  ) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader.split(' ')[1];
+    return this.courseService.updateCourse(name, course, token);
+  }
 
   @Delete("/:id")
   async deleteCourse() {}
