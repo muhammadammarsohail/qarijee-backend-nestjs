@@ -69,13 +69,17 @@ export class TeacherService {
         updatedTeacher.name = input.name || updatedTeacher.name;
         updatedTeacher.photo = input.photo || updatedTeacher.photo;
         updatedTeacher.intro = input.intro || updatedTeacher.intro;
-        updatedTeacher.password = input.password || updatedTeacher.password;
         updatedTeacher.age = input.age || updatedTeacher.age;
         updatedTeacher.country = input.country || updatedTeacher.country;
         updatedTeacher.city = input.city || updatedTeacher.city;
         updatedTeacher.recitation = input.recitation || updatedTeacher.recitation;
         updatedTeacher.availableSlots = input.availableSlots || updatedTeacher.availableSlots;
         updatedTeacher.courses = input.courses || updatedTeacher.courses;
+
+        if (input.password) {
+            const jwt: string = signJwt(email, input.password);
+            updatedTeacher.jwt = jwt;
+        }
 
         db.teacher[index] = updatedTeacher;
         return updatedTeacher;
