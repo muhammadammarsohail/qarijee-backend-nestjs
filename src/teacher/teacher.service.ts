@@ -62,6 +62,9 @@ export class TeacherService {
 
     async updateTeacher(email: string, input: UpdateTeacher.UpdateInput) {
         const index = db.teacher.findIndex(teacher => teacher.email === email);
+        if(index < 0) {
+            throw new BadRequestException("Teacher Doesn't exist")
+        }
         let updatedTeacher = db.teacher[index];
         updatedTeacher.name = input.name || updatedTeacher.name;
         updatedTeacher.photo = input.photo || updatedTeacher.photo;
