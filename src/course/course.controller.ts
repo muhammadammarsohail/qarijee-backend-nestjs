@@ -1,4 +1,5 @@
-import { Controller, Delete, Get, Param, Post, Put, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, ValidationPipe } from "@nestjs/common";
+import { Course } from "src/db";
 import { CourseEnum } from "src/enum/courseEnum";
 import { CourseService } from "./course.service";
 
@@ -36,8 +37,15 @@ export class CourseController {
     return this.courseService.getCourseByName(name, token);
   }
 
-  @Post("/:id")
-  async postCreateCourse() {}
+  @Post("/create")
+  async CreateCourse(
+    @Body() course: Course,
+    @Request() req: any
+  ) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader.split(' ')[1];
+    return await this.courseService.createCourse(course, token);
+  }
 
   @Put("/:id")
   async updateCourse() {}

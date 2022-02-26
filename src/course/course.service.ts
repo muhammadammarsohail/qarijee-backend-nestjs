@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { db } from 'src/db';
+import { Course, db } from 'src/db';
 import { CourseEnum } from 'src/enum/courseEnum';
 import { Role } from 'src/enum/enums';
 import { authenticate } from 'src/utils/utils';
@@ -24,8 +24,20 @@ export class CourseService {
         authenticate([Role.admin, Role.student, Role.teacher], token)
 
         let [course] = db.course.filter(course => course.name === courseName);
-        const teachers = db.teacher.filter(teacher => teacher.courses.include(courseName));
+        const teachers = db.teacher.filter(teacher => teacher.courses.include(courseName));     
         course['teachers'] = teachers;
+        return course;
+    }
+
+    async createCourse(courseInput: Course, token: string) {
+        authenticate([Role.admin], token);
+
+        let course = new Course();
+        course.name = courseInput.name;
+        course.description = courseInput.description;
+        course.books = courseInput.books;
+
+        db.course.push(course);
         return course;
     }
 }
