@@ -52,7 +52,7 @@ export class TeacherService {
 
     async delete(email: string) {
         const teacherIndex = db.teacher.findIndex(teacher => teacher.email === email);
-        db.teacher = db.teacher.splice(teacherIndex, 1);
+        db.teacher.splice(teacherIndex, 1);
         return 'Teacher removed successfully.'
     }
 
