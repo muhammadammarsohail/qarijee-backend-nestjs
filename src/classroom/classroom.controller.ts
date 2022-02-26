@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Query, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Request, ValidationPipe } from '@nestjs/common';
 import { Enroll } from 'src/dto/classroom.dto';
 import { ClassroomService } from './classroom.service';
 
@@ -30,12 +30,12 @@ export class ClassroomController {
 
     @Post('enroll')
     async enroll(
-        @Query() queryParams: Enroll.QueryParams,
+        @Body(ValidationPipe) input: Enroll.Input,
         @Request() req: any
     ) {
         const authHeader = req.headers['authorization']
         const token = authHeader.split(' ')[1];
-        return this.classroomService.enroll(queryParams, token);
+        return this.classroomService.enroll(input, token);
     }
 
     @Get('all')

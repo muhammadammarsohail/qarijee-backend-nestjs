@@ -2,7 +2,8 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { db, Student } from "src/db";
 import { LoginCredentialsDto } from "src/dto/loginCredentials.dto";
 import { studentSignUpCredentialsDto } from "src/dto/signupCredentials.dto";
-import { signJwt } from "src/utils/utils";
+import { Role } from "src/enum/enums";
+import { authenticate, signJwt } from "src/utils/utils";
 
 @Injectable()
 export class StudentService {
@@ -45,5 +46,13 @@ export class StudentService {
     console.log(student);
     
     return student;
-}
+  }
+
+  async delete(email: string, token: string) {
+    authenticate([Role.admin], token)
+
+    const studentIndex = db.student.findIndex(student => student.email === email);
+    db.student.splice(studentIndex, 1);
+    return 'Student removed successfully.'
+  }
 }

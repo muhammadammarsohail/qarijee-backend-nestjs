@@ -6,20 +6,32 @@ import { authenticate } from 'src/utils/utils';
 @Injectable()
 export class ClassroomService {
 
-    async enroll(queryParams: Enroll.QueryParams, token: string) {
+    async enroll(queryParams: Enroll.Input, token: string) {
         authenticate([Role.student, Role.admin], token);
 
-        let classroom = new Classroom();
         const id = queryParams.teacherEmail + queryParams.studentEmail + queryParams.courseName;
         const classExists = db.classroom.filter(classroom => classroom.id === id);
-        if (classExists) {
+        if (classExists?.length) {
             throw new BadRequestException('You are already Enrolled here!')
         }
-        classroom.id = id;
+        
         const [student] = db.student.filter(student => student.email === queryParams.studentEmail);
         const [teacher] = db.teacher.filter(teacher => teacher.email === queryParams.teacherEmail);
+        
+        if (!teacher) {
+            throw new BadRequestException('Teacher does not exists')
+        }
+        if (!student) {
+            throw new BadRequestException('Student does not exists')
+        }
+
+        let classroom = new Classroom();
+        classroom.id = id;
+        
         const courseNameInSmall: string = queryParams.courseName;
-        const capitalizedCourseName: string = courseNameInSmall.charAt(0).toUpperCase();
+        const capitalizedCourseName: string = courseNameInSmall.charAt(0).toUpperCase() + courseNameInSmall.slice(1,);
+        console.log(1);
+        
         classroom.name = `${student.name} <> ${teacher.name} | ${capitalizedCourseName} Classroom`
         classroom.roomLink = teacher.roomLink;
         classroom.teacherEmail = queryParams.teacherEmail;

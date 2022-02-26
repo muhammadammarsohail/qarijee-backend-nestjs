@@ -3,7 +3,7 @@ import { CourseEnum } from "src/enum/courseEnum";
 import { SlotsDto } from "./availableSlots.dto";
 
 export namespace Enroll {
-    export class QueryParams {
+    export class Input {
         @IsString()
         @IsNotEmpty()
         studentEmail: string;
