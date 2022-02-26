@@ -3,5 +3,6 @@ export enum CourseEnum {
     hifz = 'hifz',
     qiraat = 'qiraat',
     tafseer = 'tafseer',
-    hadees = 'hadees'
+    hadees = 'hadees',
+    hadar = 'hadar'
 }
