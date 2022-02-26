@@ -44,6 +44,7 @@ export namespace UpdateTeacher {
   
     @IsArray()
     @IsEnum(CourseEnum)
+    @IsOptional()
     courses?: CourseEnum[];
 
   }
