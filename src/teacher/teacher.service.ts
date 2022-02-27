@@ -97,4 +97,9 @@ export class TeacherService {
         return sortedTeachers.slice(0, 4);
     }
 
+    async getTeacherByEmail(email: string) {
+        const [teacher] = db.teacher.filter(teacher => teacher.email === email);
+        return teacher;
+    }
+
 }
