@@ -18,9 +18,7 @@ export class CourseService {
         return undeletedCourseNames;
     }
 
-    async getAllCourses(token: string) {
-        authenticate([Role.admin, Role.student, Role.teacher], token)
-        
+    async getAllCourses() {        
         return db.course;
     }
 

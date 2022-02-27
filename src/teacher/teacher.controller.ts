@@ -20,11 +20,8 @@ export class TeacherController {
 
   @Get('/top') 
   async getTopTeachers(
-    @Request() req: any
   ) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader.split(' ')[1];
-    return this.teacherService.getTopTeachers(token);
+    return this.teacherService.getTopTeachers();
   }
 
   @Get('/all')

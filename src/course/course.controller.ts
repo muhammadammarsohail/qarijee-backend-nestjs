@@ -20,12 +20,8 @@ export class CourseController {
   }
 
   @Get('all')
-  async getAllCourses(
-    @Request() req: any
-  ) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader.split(' ')[1];
-    return this.courseService.getAllCourses(token);
+  async getAllCourses() {
+    return this.courseService.getAllCourses();
   }
 
   @Get('/:name')
