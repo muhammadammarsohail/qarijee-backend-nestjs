@@ -66,6 +66,7 @@ export class TeacherService {
             throw new BadRequestException("Teacher Doesn't exist")
         }
         let updatedTeacher = db.teacher[index];
+        updatedTeacher.isHired = input.isHired || updatedTeacher.isHired;
         updatedTeacher.name = input.name || updatedTeacher.name;
         updatedTeacher.photo = input.photo || updatedTeacher.photo;
         updatedTeacher.intro = input.intro || updatedTeacher.intro;

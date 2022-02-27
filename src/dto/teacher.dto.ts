@@ -5,6 +5,10 @@ import { SlotsDto } from "./availableSlots.dto";
 
 export namespace UpdateTeacher {
   export class UpdateInput {
+
+    @IsBoolean()
+    @IsOptional()
+    isHired: boolean = false;
   
     @IsString()
     @IsOptional()

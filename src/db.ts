@@ -43,7 +43,7 @@ export class Teacher {
   @IsString()
   intro: string;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
   isHired: boolean = false;
 
