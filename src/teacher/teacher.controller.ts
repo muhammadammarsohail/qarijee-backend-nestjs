@@ -32,8 +32,12 @@ export class TeacherController {
     return await this.teacherService.getAllTeachers();
   }
 
-  @Get("/:id")
-  async getTeacherById() {}
+  @Get("/:email")
+  async getTeacherByEmail(
+    @Param("email") email: string
+  ) {
+    return this.teacherService.getTeacherByEmail(email);
+  }
 
   @Post()
   async postCreateTeacher() {}
