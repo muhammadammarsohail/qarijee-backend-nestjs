@@ -88,7 +88,7 @@ export class TeacherService {
 
     async getTopTeachers() {
 
-        let teachers = db.teacher
+        let teachers = db.teacher.filter(teacher => teacher.isHired === true);
         let sortedTeachers = teachers.sort(
             (a, b) => {
                 return a.rating - b.rating;
@@ -99,6 +99,8 @@ export class TeacherService {
 
     async getTeacherByEmail(email: string) {
         const [teacher] = db.teacher.filter(teacher => teacher.email === email);
+        const courses = db.course.filter(course => teacher.courses.includes(course.name));
+        teacher['courseDetails'] = courses;
         return teacher;
     }
 

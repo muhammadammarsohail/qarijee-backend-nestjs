@@ -26,7 +26,7 @@ export class CourseService {
         authenticate([Role.admin, Role.student, Role.teacher], token)
 
         let [course] = db.course.filter(course => course.name === courseName);
-        const teachers = db.teacher.filter(teacher => teacher.courses.include(courseName));     
+        const teachers = db.teacher.filter(teacher => teacher.courses.includes(courseName));     
         course['teachers'] = teachers;
         return course;
     }
