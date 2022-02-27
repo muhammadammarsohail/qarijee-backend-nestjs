@@ -85,8 +85,7 @@ export class TeacherService {
         return updatedTeacher;
     }
 
-    async getTopTeachers(token: string) {
-        authenticate([Role.admin, Role.student], token)
+    async getTopTeachers() {
 
         let teachers = db.teacher
         let sortedTeachers = teachers.sort(
