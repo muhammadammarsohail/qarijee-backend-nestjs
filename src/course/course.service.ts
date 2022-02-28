@@ -9,7 +9,7 @@ import { authenticate } from 'src/utils/utils';
 export class CourseService {
 
     async getCourseNames(token: string) {
-        authenticate([Role.admin, Role.student, Role.teacher], token)
+        // authenticate([Role.admin, Role.student, Role.teacher], token)
 
         const deleted: string = 'DELETED';
 
@@ -23,7 +23,7 @@ export class CourseService {
     }
 
     async getCourseByName(courseName: CourseEnum, token: string) {
-        authenticate([Role.admin, Role.student, Role.teacher], token)
+        // authenticate([Role.admin, Role.student, Role.teacher], token)
 
         let [course] = db.course.filter(course => course.name === courseName);
         const teachers = db.teacher.filter(teacher => teacher.courses.includes(courseName));     
