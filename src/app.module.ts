@@ -9,10 +9,11 @@ import { AuthModule } from './auth/auth.module';
 import { RightModule } from './right/right.module';
 import { AdminModule } from './admin/admin.module';
 import { AssessmentModule } from './assessment/assessment.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot(typeOrmConfig),
     StudentModule,
     TeacherModule,
     ClassroomModule,
@@ -21,6 +22,7 @@ import { AssessmentModule } from './assessment/assessment.module';
     RightModule,
     AdminModule,
     AssessmentModule,
+    DatabaseModule,
   ],
 })
 export class AppModule {}

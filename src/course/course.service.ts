@@ -1,5 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Course, db } from 'src/db';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Course } from '../entities/course.entity';
+import { Teacher } from '../entities/teacher.entity';
 import { UpdateCourse } from 'src/dto/course.dto';
 import { CourseEnum } from 'src/enum/courseEnum';
 import { Role } from 'src/enum/enums';
@@ -7,77 +10,96 @@ import { authenticate } from 'src/utils/utils';
 
 @Injectable()
 export class CourseService {
+    constructor(
+        @InjectRepository(Course)
+        private courseRepository: Repository<Course>,
+        @InjectRepository(Teacher)
+        private teacherRepository: Repository<Teacher>,
+    ) {}
 
     async getCourseNames(token: string) {
         // authenticate([Role.admin, Role.student, Role.teacher], token)
 
         const deleted: string = 'DELETED';
-
-        const courseNames = Object.values(CourseEnum)
-        const undeletedCourseNames = courseNames.filter(courseName => courseName !== deleted)
+        const courseNames = Object.values(CourseEnum);
+        const undeletedCourseNames = courseNames.filter(courseName => courseName !== deleted);
         return undeletedCourseNames;
     }
 
     async getAllCourses() {        
-        return db.course;
+        return await this.courseRepository.find();
     }
 
     async getCourseByName(courseName: CourseEnum, token: string) {
         // authenticate([Role.admin, Role.student, Role.teacher], token)
 
-        let [course] = db.course.filter(course => course.name === courseName);
-        const teachers = db.teacher.filter(teacher => teacher.courses.includes(courseName));     
-        course['teachers'] = teachers;
-        return course;
-    }
+        const course = await this.courseRepository.findOne({
+            where: { name: courseName }
+        });
 
-    async createCourse(courseInput: Course, token: string) {
-        authenticate([Role.admin], token);
-
-        const courseIndex = db.course.findIndex(course => course.name == courseInput.name);
-
-        if (courseIndex >= 0) {
-            throw new BadRequestException("Course already exists")
+        if (!course) {
+            throw new BadRequestException("Course not found");
         }
 
-        let course = new Course();
-        course.name = courseInput.name;
-        course.description = courseInput.description;
-        course.books = courseInput.books;
+        const teachers = await this.teacherRepository.find({
+            where: { courses: courseName.toString() }
+        });
 
-        CourseEnum[courseInput.name.toString()] = courseInput.name;
+        return {
+            ...course,
+            teachers
+        };
+    }
 
-        db.course.push(course);
-        return course;
+    async createCourse(courseInput: any, token: string) {
+        authenticate([Role.admin], token);
+
+        const existingCourse = await this.courseRepository.findOne({
+            where: { name: courseInput.name }
+        });
+
+        if (existingCourse) {
+            throw new BadRequestException("Course already exists");
+        }
+
+        const course = this.courseRepository.create({
+            name: courseInput.name,
+            description: courseInput.description,
+            books: courseInput.books
+        });
+
+        return await this.courseRepository.save(course);
     }
 
     async updateCourse(courseName: string, courseInput: UpdateCourse, token: string) {
         authenticate([Role.admin], token);        
 
-        const courseIndex = db.course.findIndex(course => course.name == courseName);
+        const course = await this.courseRepository.findOne({
+            where: { name: courseName as CourseEnum }
+        });
 
-        if (courseIndex < 0) {
-            throw new BadRequestException("Course doesn't exist")
+        if (!course) {
+            throw new BadRequestException("Course doesn't exist");
         }
 
-        db.course[courseIndex].description = courseInput.description;
-        db.course[courseIndex].books = courseInput.books;
+        course.description = courseInput.description;
+        course.books = courseInput.books;
 
-        return db.course[courseIndex];        
+        return await this.courseRepository.save(course);
     }
 
     async delete(name: string, token: string) {
         authenticate([Role.admin], token);        
 
-        const courseIndex = db.course.findIndex(course => course.name === name);
+        const course = await this.courseRepository.findOne({
+            where: { name: name as CourseEnum }
+        });
 
-        if(courseIndex < 0) {
-            throw new BadRequestException("Course doesn't exist")
+        if (!course) {
+            throw new BadRequestException("Course doesn't exist");
         }
 
-        CourseEnum[name] = 'DELETED'
-
-        db.course.splice(courseIndex, 1);
-        return 'Course removed successfully.'
+        await this.courseRepository.remove(course);
+        return 'Course removed successfully.';
     }
 }
